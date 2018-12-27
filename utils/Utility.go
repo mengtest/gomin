@@ -21,5 +21,5 @@ func ParamError() *map[string]interface{} {
 }
 
 func SysError() *map[string]interface{} {
-	return &map[string]interface{}{"code": SYS_PARAM_ERROR, "msg": "sys error"}
+	return &map[string]interface{}{"code": SYS_ERROR, "msg": "sys error"}
 }

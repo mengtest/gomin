@@ -9,7 +9,7 @@ import (
 func UserList(offset, limit int) (int64, []*User) {
 	o := orm.NewOrm()
 	querySelecter := o.QueryTable(new(User))
-	querySelecter = querySelecter.OrderBy("-create_time");
+	querySelecter = querySelecter.Filter("is_valid", 1).OrderBy("-create_time");
 	count, e := querySelecter.Count()
 	if e != nil {
 		fmt.Println("select user error")
@@ -26,6 +26,8 @@ func UserList(offset, limit int) (int64, []*User) {
 }
 
 func InsertUser(user User) int {
+	user.IsValid = true
+	user.Status = 1
 	_, e := orm.NewOrm().Insert(&user)
 	if e != nil {
 		return -1
@@ -33,13 +35,22 @@ func InsertUser(user User) int {
 	return user.Id
 }
 
-func UpdateUser(user User) int64 {
-	count, error := orm.NewOrm().Update(&user)
-	if error != nil {
-		logs.Error("update user error:", error)
+func DeleteUser(userIds []int) (int64, error) {
+	o := orm.NewOrm()
+	count, e := o.QueryTable(new(User)).Filter("id__in", userIds).Update(orm.Params{"is_valid": 0})
+	if e != nil {
+		logs.Error("delete user error: ", e)
+	}
+	return count, e
+}
+
+func UpdateUser(user User) (int64, error) {
+	count, err := orm.NewOrm().Update(&user)
+	if err != nil {
+		logs.Error("update user error:", err)
 	}
 	logs.Debug("Update end :", count)
-	return count
+	return count, err
 }
 
 func init() {

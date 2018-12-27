@@ -1,8 +1,9 @@
 var $;
-var userListTale
+var layer;
+var userListTale;
 layui.use(['jquery', 'table', 'layer'], function () {
-    // var userListTale = layui.table;
-    var layer = layui.layer;
+    var table = layui.table;
+    layer = layui.layer;
     $ = layui.$;
 
     // 初始化表格
@@ -18,6 +19,14 @@ layui.use(['jquery', 'table', 'layer'], function () {
                 area:['600px', '400px'],
                 content: ['addUserTpl', 'no']
             });
+        },
+        deleteUserMuilti: function () {
+            var checkedData = table.checkStatus('userListTable');
+            var userIds = [];
+            for (var i=0,len=checkedData.data.length; i<len; i++) {
+                userIds.push(checkedData.data[i].Id);
+            }
+            deleteUser({UserIds: userIds});
         }
     }
 
@@ -25,6 +34,19 @@ layui.use(['jquery', 'table', 'layer'], function () {
         var othis = $(this), method = othis.data('method');
         if (method) {
             active[method] ? active[method].call(this, othis) : '';
+        }
+    });
+
+    // 行工具按钮事件
+    table.on('tool(userListTable)', function(obj) {
+        var data = obj.data;
+        var layEvent = obj.event;
+        var tr = obj.tr;
+        if (layEvent === 'deleteUserOne') { //查看
+            let userId = [];
+            userId.push(data.Id);
+            var user = {UserIds: userId}
+            deleteUser(user);
         }
     });
 
@@ -61,5 +83,32 @@ function initTable(table) {
                 toolbar: '#userToolBar'
             }
         ]]
+    });
+}
+
+/**
+ * 删除用户
+ * @param userIdsList
+ */
+function deleteUser(userIdsList) {
+    if (!userIdsList || !userIdsList.UserIds) {
+        layer.alert("请先选择用户！", {icon: 2});
+        return;
+    }
+    layer.confirm('确认删除吗', {icon: 3, title:'提示'}, function(index){
+        $.post({
+            url: '/deleteuser',
+            data: JSON.stringify(userIdsList),
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 0) {
+                    layer.alert("操作成功", {icon: 6});
+                    userListTale.reload({});
+                } else {
+                    layer.alert("操作失败", {icon: 5});
+                }
+            }
+        })
+        layer.close(index);
     });
 }
