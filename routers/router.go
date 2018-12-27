@@ -6,7 +6,6 @@ import (
 )
 
 func init() {
-    beego.Router("/", &controllers.MainController{})
     beego.Router("/test", &controllers.TestController{}, "get:TestApp")
     beego.Router("/table", &controllers.TableController{}, "get:TableList")
     beego.Include(&controllers.CMSController{})
