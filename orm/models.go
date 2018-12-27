@@ -47,6 +47,7 @@ type Menu struct {
 	MenuUrl    string    `orm:"size(100)"`
 	Level      int       `orm:"default(1)"`
 	ParentId   int       `orm:"null"`
+	Order      int       `orm: "NOT NULL"`
 	Remark     string    `orm:"size(100)"`
 	Status     int8      `orm:"NOT NULL;default(1)"`
 	IsValid    bool      `orm:"NOT NULL;default(1)"`

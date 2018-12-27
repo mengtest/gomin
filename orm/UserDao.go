@@ -53,6 +53,13 @@ func UpdateUserStatusMulti(userIds []int, targetStatus int8) (int64, error) {
 	return count, e
 }
 
+func QueryOneUser(userId int) User {
+	o := orm.NewOrm()
+	user := User{Id: userId}
+	o.Read(&user)
+	return user
+}
+
 func UpdateUser(user User) (int64, error) {
 	count, err := orm.NewOrm().Update(&user)
 	if err != nil {

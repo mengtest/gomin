@@ -17,7 +17,7 @@ layui.use(['jquery', 'table', 'layer'], function () {
                 title: '添加用户',
                 type: 2,
                 area: ['600px', '400px'],
-                content: ['addUserTpl', 'no']
+                content: ['/addUserTpl', 'no']
             });
         },
         deleteUserMuilti: function () {
@@ -75,6 +75,13 @@ layui.use(['jquery', 'table', 'layer'], function () {
             }
             newUser = {UserIds: userIds, TargetStatus: targetStatus}
             updateUserStatusMulti(newUser)
+        } else if (layEvent == "ediUser") {
+            layer.open({
+                title: '修改用户',
+                type: 2,
+                area: ['600px', '400px'],
+                content: ['/editUserTpl/'+data.Id, 'no']
+            });
         }
     });
 
@@ -107,7 +114,7 @@ function initTable(table) {
                 }
             },
             {
-                fixed: 'right', width: 250, align: 'center',
+                fixed: 'right', width: 260, align: 'center',
                 toolbar: '#userToolBar'
             }
         ]]

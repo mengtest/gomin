@@ -1,8 +1,11 @@
 var $;
-layui.use(['jquery', 'layer', 'table'], function () {
+layui.use(['jquery', 'layer', 'table', 'form'], function () {
     var layer = layui.layer;
     $ = layui.$;
     var layer = layui.layer;
+
+    console.log('111')
+    initUser(layui.form);
 
     var active = {
         addUser: function () {
@@ -50,3 +53,17 @@ layui.use(['jquery', 'layer', 'table'], function () {
 
 });
 
+function initUser(form) {
+    $.ajax({
+        url: '/queryOneUser/'+$("#userId").val(),
+        type:'get',
+        dataType: 'json',
+        success: function (res) {
+            if (res.code == 0) {
+                form.val('editUserTable', res.data);
+            } else {
+                layer.alert("数据加载失败", {icon: 5});
+            }
+        }
+    })
+}

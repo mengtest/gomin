@@ -11,33 +11,48 @@
 
 </head>
 <body>
-<div class="layui-card">
-    <div class="layui-card-header">
-        <span>用户管理</span>
-    </div>
-    <div class="layui-card-body">
-        <div>
-            <div class="layui-btn-group userListTableBtnGroup">
-                <button data-method="openAddUserModal" class="layui-btn layui-btn-sm">添加</button>
-                <button data-method="disableUserMulti" class="layui-btn layui-btn-warm layui-btn-sm">禁用</button>
-                <button data-method="enableUserMulti" class="layui-btn layui-btn-warm layui-btn-sm">启用</button>
-                <button data-method="deleteUserMuilti" class="layui-btn layui-btn-danger layui-btn-sm">批量删除</button>
+<div class="layui-card-body">
+    <input type="hidden" id="userId" value="{{.userId}}">
+    <form action="" class="layui-form" lay-filter="editUserTable">
+        <div class="layui-form-item">
+            <label for="LoginName" class="layui-form-label">登录名:</label>
+            <div class="layui-input-block">
+                <input type="text" name="LoginName" id="LoginName" class="layui-input">
             </div>
         </div>
-        <div>
-            <table class="layui-hide" id="userListTable" lay-filter="userListTable"></table>
+        <div class="layui-form-item">
+            <label for="Password" class="layui-form-label">密码:</label>
+            <div class="layui-input-block">
+                <input type="password" name="Password" id="Password" class="layui-input">
+            </div>
         </div>
-    </div>
+        <div class="layui-form-item">
+            <label for="Name" class="layui-form-label">姓名:</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" id="Name" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="Mibile" class="layui-form-label">手机号:</label>
+            <div class="layui-input-block">
+                <input type="text" name="Mobile" id="Mobile" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="Email" class="layui-form-label">邮箱:</label>
+            <div class="layui-input-block">
+                <input type="text" name="Email" id="Email" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" data-method="addUser">确定</button>
+                <button type="button" class="layui-btn layui-btn-primary" data-method="cancelAdd">取消</button>
+            </div>
+        </div>
+    </form>
 </div>
-
 <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
-<script src="/static/js/user/userList.js" charset="utf-8"></script>
-<script type="text/html" id="userToolBar">
-    <a class="layui-btn layui-btn-sm" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-sm" lay-event="ediUser">编辑</a>
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="updateUserStatus">启|禁用</a>
-    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteUserOne">删除</a>
-</script>
-
+<script src="/static/js/user/editUser.js" charset="utf-8"></script>
 </body>
 </html>

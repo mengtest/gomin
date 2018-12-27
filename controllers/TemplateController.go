@@ -12,6 +12,10 @@ func (c *TemplateController) UserListTpl() {
 }
 
 func (c *TemplateController) AddUserTpl() {
-	//c.Layout = "layout.tpl"
 	c.TplName = "user/addUser.tpl"
+}
+
+func (c *TemplateController) EditUserTpl() {
+	c.TplName = "user/editUser.tpl"
+	c.Data["userId"] = c.Ctx.Input.Param(":id")
 }

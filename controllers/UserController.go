@@ -8,6 +8,7 @@ import (
 	"gomin/orm"
 	"gomin/service"
 	"gomin/utils"
+	"strconv"
 )
 
 type UserController struct {
@@ -53,7 +54,7 @@ func (this *UserController) DeleteUser() {
 	this.ServeJSON()
 }
 
-func (this *UserController) UpdateUserStatusMulti()  {
+func (this *UserController) UpdateUserStatusMulti() {
 	var req model.UpdateUserStatusReq
 	var err error
 	if json.Unmarshal(this.Ctx.Input.RequestBody, &req); err == nil {
@@ -67,6 +68,18 @@ func (this *UserController) UpdateUserStatusMulti()  {
 		}
 	} else {
 		this.Data["json"] = utils.SysError()
+	}
+	this.ServeJSON()
+}
+
+func (this *UserController) QueryOneUser() {
+	userId, e:= strconv.Atoi(this.Ctx.Input.Param(":id"))
+	logs.Debug("QueryOneUser userId: ", userId)
+	if e != nil {
+		this.Data["json"] = utils.SYS_PARAM_ERROR
+	} else {
+		user := service.QueryOneUser(userId)
+		this.Data["json"] = utils.Success(user)
 	}
 	this.ServeJSON()
 }
