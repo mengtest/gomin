@@ -16,21 +16,37 @@ layui.use(['jquery', 'table', 'layer'], function () {
             layer.open({
                 title: '添加用户',
                 type: 2,
-                area:['600px', '400px'],
+                area: ['600px', '400px'],
                 content: ['addUserTpl', 'no']
             });
         },
         deleteUserMuilti: function () {
             var checkedData = table.checkStatus('userListTable');
             var userIds = [];
-            for (var i=0,len=checkedData.data.length; i<len; i++) {
+            for (var i = 0, len = checkedData.data.length; i < len; i++) {
                 userIds.push(checkedData.data[i].Id);
             }
             deleteUser({UserIds: userIds});
+        },
+        disableUserMulti: function () {
+            var checkedData = table.checkStatus('userListTable');
+            var userIds = [];
+            for (var i = 0, len = checkedData.data.length; i < len; i++) {
+                userIds.push(checkedData.data[i].Id);
+            }
+            updateUserStatusMulti({UserIds: userIds, TargetStatus: 2});
+        },
+        enableUserMulti: function () {
+            var checkedData = table.checkStatus('userListTable');
+            var userIds = [];
+            for (var i = 0, len = checkedData.data.length; i < len; i++) {
+                userIds.push(checkedData.data[i].Id);
+            }
+            updateUserStatusMulti({UserIds: userIds, TargetStatus: 1});
         }
-    }
+    };
 
-    $('.layui-btn').on('click', function(){
+    $('.layui-btn').on('click', function () {
         var othis = $(this), method = othis.data('method');
         if (method) {
             active[method] ? active[method].call(this, othis) : '';
@@ -38,15 +54,27 @@ layui.use(['jquery', 'table', 'layer'], function () {
     });
 
     // 行工具按钮事件
-    table.on('tool(userListTable)', function(obj) {
+    table.on('tool(userListTable)', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
-        var tr = obj.tr;
-        if (layEvent === 'deleteUserOne') { //查看
+        if (layEvent === 'deleteUserOne') {
+            // 删除用户
             let userId = [];
             userId.push(data.Id);
-            var user = {UserIds: userId}
+            var user = {UserIds: userId};
             deleteUser(user);
+        } else if (layEvent == 'updateUserStatus') {
+            // 修改用户状态
+            var userIds = [];
+            userIds.push(data.Id);
+            var targetStatus = 0;
+            if (data.Status == 1) {
+                targetStatus = 2;
+            } else {
+                targetStatus = 1;
+            }
+            newUser = {UserIds: userIds, TargetStatus: targetStatus}
+            updateUserStatusMulti(newUser)
         }
     });
 
@@ -88,17 +116,17 @@ function initTable(table) {
 
 /**
  * 删除用户
- * @param userIdsList
+ * @param user
  */
-function deleteUser(userIdsList) {
-    if (!userIdsList || !userIdsList.UserIds) {
+function deleteUser(user) {
+    if (!user || !user.UserIds || user.UserIds.length == 0) {
         layer.alert("请先选择用户！", {icon: 2});
         return;
     }
-    layer.confirm('确认删除吗', {icon: 3, title:'提示'}, function(index){
+    layer.confirm('确认删除吗', {icon: 3, title: '提示'}, function (index) {
         $.post({
             url: '/deleteuser',
-            data: JSON.stringify(userIdsList),
+            data: JSON.stringify(user),
             dataType: 'json',
             success: function (res) {
                 if (res.code == 0) {
@@ -108,7 +136,40 @@ function deleteUser(userIdsList) {
                     layer.alert("操作失败", {icon: 5});
                 }
             }
-        })
+        });
+        layer.close(index);
+    });
+}
+
+/**
+ * 禁用/启用
+ * @param user
+ */
+function updateUserStatusMulti(user) {
+    if (!user || !user.UserIds || user.UserIds.length == 0) {
+        layer.alert("请先选择用户！", {icon: 2});
+        return;
+    }
+    var message = '';
+    if (user.TargetStatus == 1) {
+        message = "确认启用用户吗？";
+    } else {
+        message = "确认禁用用户吗？";
+    }
+    layer.confirm(message, {icon: 3, title: '提示'}, function (index) {
+        $.post({
+            url: '/updateUserStatusMulti',
+            data: JSON.stringify(user),
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 0) {
+                    layer.alert("操作成功", {icon: 6});
+                    userListTale.reload({});
+                } else {
+                    layer.alert("操作失败", {icon: 5});
+                }
+            }
+        });
         layer.close(index);
     });
 }

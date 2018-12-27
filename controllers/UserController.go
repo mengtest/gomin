@@ -36,13 +36,31 @@ func (this *UserController) UserList() {
 }
 
 func (this *UserController) DeleteUser() {
-	var req model.UserDeleteReq
+	var req model.DeleteUserReq
 	var err error
 	if json.Unmarshal(this.Ctx.Input.RequestBody, &req); err == nil {
 		logs.Debug("DeleteUser ids: ", req)
 		count, err := service.DeleteUser(req.UserIds)
 		if err != nil {
 			logs.Error("DeleteUser error: ", err)
+			this.Data["json"] = utils.SysError()
+		} else {
+			this.Data["json"] = utils.Success(count)
+		}
+	} else {
+		this.Data["json"] = utils.SysError()
+	}
+	this.ServeJSON()
+}
+
+func (this *UserController) UpdateUserStatusMulti()  {
+	var req model.UpdateUserStatusReq
+	var err error
+	if json.Unmarshal(this.Ctx.Input.RequestBody, &req); err == nil {
+		logs.Debug("DisableUser ids: ", req)
+		count, err := service.UpdateUserStatusMulti(req.UserIds, req.TargetStatus)
+		if err != nil {
+			logs.Error("DisableUser error: ", err)
 			this.Data["json"] = utils.SysError()
 		} else {
 			this.Data["json"] = utils.Success(count)

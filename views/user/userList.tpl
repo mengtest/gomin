@@ -19,7 +19,8 @@
         <div>
             <div class="layui-btn-group userListTableBtnGroup">
                 <button data-method="openAddUserModal" class="layui-btn layui-btn-sm">添加</button>
-                <button class="layui-btn layui-btn-warm layui-btn-sm">批量禁用</button>
+                <button data-method="disableUserMulti" class="layui-btn layui-btn-warm layui-btn-sm">禁用</button>
+                <button data-method="enableUserMulti" class="layui-btn layui-btn-warm layui-btn-sm">启用</button>
                 <button data-method="deleteUserMuilti" class="layui-btn layui-btn-danger layui-btn-sm">批量删除</button>
             </div>
         </div>
@@ -34,7 +35,7 @@
 <script type="text/html" id="userToolBar">
     <a class="layui-btn layui-btn-sm" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="disable">禁用</a>
+    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="updateUserStatus">启|禁用</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteUserOne">删除</a>
 </script>
 

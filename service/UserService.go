@@ -12,3 +12,7 @@ func AddUser(user orm.User) int  {
 func DeleteUser(userIds []int)(int64, error)  {
 	return orm.DeleteUser(userIds)
 }
+
+func UpdateUserStatusMulti(userIds []int, targetStatus int8) (int64, error)  {
+	return orm.UpdateUserStatusMulti(userIds, targetStatus)
+}
