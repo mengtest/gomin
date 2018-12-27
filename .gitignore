@@ -1,1 +1,5 @@
 .idea/
+gomin
+lastupdate.tmp
+*.log
+routers/commentsRouter_controllers.go
