@@ -84,8 +84,23 @@ func (this *UserController) QueryOneUser() {
 	this.ServeJSON()
 }
 
+func (this *UserController) UpdateUser()  {
+	var user orm.User
+	var err error
+	if json.Unmarshal(this.Ctx.Input.RequestBody, &user); err == nil {
+		logs.Debug("UpdateUser userId: ", user.Id)
+		result, err := service.UpdateUser(user)
+		if err == nil {
+			this.Data["json"] = utils.Success(result)
+		} else{
+			this.Data["json"] = utils.SysError()
+		}
+	} else {
+		this.Data["json"] = utils.SysError()
+	}
+	this.ServeJSON()
+}
+
 func init() {
-	logs.SetLevel(logs.LevelDebug)
-	logs.SetLogger(logs.AdapterFile, `{"filename":"project.log","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10,"color":true}`)
-	logs.EnableFuncCallDepth(true)
+
 }

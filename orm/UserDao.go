@@ -61,7 +61,7 @@ func QueryOneUser(userId int) User {
 }
 
 func UpdateUser(user User) (int64, error) {
-	count, err := orm.NewOrm().Update(&user)
+	count, err := orm.NewOrm().Update(&user, "login_name", "password", "name", "mobile", "email")
 	if err != nil {
 		logs.Error("update user error:", err)
 	}
@@ -69,8 +69,3 @@ func UpdateUser(user User) (int64, error) {
 	return count, err
 }
 
-func init() {
-	logs.SetLevel(logs.LevelDebug)
-	logs.SetLogger(logs.AdapterFile, `{"filename":"project.log","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10,"color":true}`)
-	logs.EnableFuncCallDepth(true)
-}

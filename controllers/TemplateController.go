@@ -19,3 +19,9 @@ func (c *TemplateController) EditUserTpl() {
 	c.TplName = "user/editUser.tpl"
 	c.Data["userId"] = c.Ctx.Input.Param(":id")
 }
+
+func (c *TemplateController) MenuListTpl()  {
+	c.Layout = "layout.tpl"
+	c.TplName = "menu/menuList.tpl"
+
+}

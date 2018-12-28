@@ -4,7 +4,6 @@ layui.use(['jquery', 'layer', 'table', 'form'], function () {
     $ = layui.$;
     var layer = layui.layer;
 
-    console.log('111')
     initUser(layui.form);
 
     var active = {
@@ -13,6 +12,7 @@ layui.use(['jquery', 'layer', 'table', 'form'], function () {
                 btn: ["确定", '取消'],
                 yes: function () {
                     var user = {
+                        Id: parseInt($("#userId").val()),
                         LoginName: $("#LoginName").val(),
                         Password: $("#Password").val(),
                         Name: $("#Name").val(),
@@ -21,7 +21,7 @@ layui.use(['jquery', 'layer', 'table', 'form'], function () {
                     };
                     $.ajax({
                         method: 'post',
-                        url: '/adduser',
+                        url: '/updateUser',
                         dataType: 'json',
                         data: JSON.stringify(user),
                         success: function (data) {

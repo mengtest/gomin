@@ -1,5 +1,7 @@
 package utils
 
+import "github.com/astaxie/beego/logs"
+
 type Response struct {
 	status int
 	msg    string
@@ -22,4 +24,10 @@ func ParamError() *map[string]interface{} {
 
 func SysError() *map[string]interface{} {
 	return &map[string]interface{}{"code": SYS_ERROR, "msg": "sys error"}
+}
+
+func init() {
+	logs.SetLevel(logs.LevelDebug)
+	logs.SetLogger(logs.AdapterFile, `{"filename":"project.log","level":7,"maxlines":0,"maxsize":0,"daily":true,"maxdays":10,"color":true}`)
+	logs.EnableFuncCallDepth(true)
 }

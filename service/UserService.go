@@ -1,6 +1,7 @@
 package service
 
 import (
+	"gomin/model"
 	"gomin/orm"
 )
 
@@ -19,4 +20,12 @@ func UpdateUserStatusMulti(userIds []int, targetStatus int8) (int64, error) {
 
 func QueryOneUser(userId int) orm.User {
 	return orm.QueryOneUser(userId)
+}
+
+func UpdateUser(user orm.User) (int64, error){
+	return orm.UpdateUser(user)
+}
+
+func MeneDelete(req model.MenuDeleteReq) (int64, error){
+	return orm.MeneDelete(req)
 }

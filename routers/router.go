@@ -19,5 +19,11 @@ func init() {
     beego.Router("/deleteuser", &controllers.UserController{}, "post:DeleteUser")
     beego.Router("/updateUserStatusMulti", &controllers.UserController{}, "post:UpdateUserStatusMulti")
     beego.Router("/queryOneUser/?:id", &controllers.UserController{}, "get:QueryOneUser")
+    beego.Router("/updateUser", &controllers.UserController{}, "post:UpdateUser")
+
+    // =================    菜单   =============================
+    beego.Router("/menulisttpl", &controllers.TemplateController{}, "get:MenuListTpl")
+    beego.Router("/menulist", &controllers.MenuController{}, "get:MenuList")
+    beego.Router("/deletemenu", &controllers.MenuController{}, "post:MenuDelete")
 
 }

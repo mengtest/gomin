@@ -5,11 +5,15 @@ type DeleteUserReq struct {
 }
 
 type DisableUserReq struct {
-	UserIds []int
+	UserIds      []int
 	targetStatus int8
 }
 
 type UpdateUserStatusReq struct {
-	UserIds []int
+	UserIds      []int
 	TargetStatus int8
+}
+
+type MenuDeleteReq struct {
+	MenuIds []int
 }
