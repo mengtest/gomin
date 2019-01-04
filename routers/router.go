@@ -23,7 +23,9 @@ func init() {
 
     // =================    菜单   =============================
     beego.Router("/menulisttpl", &controllers.TemplateController{}, "get:MenuListTpl")
+    beego.Router("/menuaddtpl", &controllers.TemplateController{}, "get:MenuAddTpl")
     beego.Router("/menulist", &controllers.MenuController{}, "get:MenuList")
     beego.Router("/deletemenu", &controllers.MenuController{}, "post:MenuDelete")
+    beego.Router("/addmenu", &controllers.MenuController{}, "post:MenuAdd")
 
 }

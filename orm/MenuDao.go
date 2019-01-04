@@ -11,10 +11,20 @@ func MenuList(offset, limit int) (int64, []*Menu) {
 	querySeter := o.QueryTable(new(Menu))
 	querySeter = querySeter.Filter("is_valid", 1)
 	count, _ := querySeter.Count()
-	querySeter.Limit(limit, offset)
+	querySeter = querySeter.Limit(limit, offset)
 	menus := make([]*Menu, 0)
 	querySeter.All(&menus)
 	return count, menus
+}
+
+func MenuInsert(menu Menu) int64 {
+	menu.Status = 1
+	menu.IsValid = true
+	count, err := orm.NewOrm().Insert(&menu)
+	if err != nil {
+		logs.Error("MenuInsert error: ", err)
+	}
+	return count
 }
 
 func MeneDelete(req model.MenuDeleteReq) (int64, error) {

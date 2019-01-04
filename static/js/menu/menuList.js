@@ -11,16 +11,16 @@ layui.use(['jquery', 'table', 'layer', 'laytpl'], function () {
     menuListTable = initTable(layui.table);
 
     var active = {
-        // openAddUserModal: function () {
-        //     var that = this;
-        //     // 添加用户
-        //     layer.open({
-        //         title: '添加用户',
-        //         type: 2,
-        //         area: ['600px', '400px'],
-        //         content: ['/addUserTpl', 'no']
-        //     });
-        // },
+        openAddMenuModal: function () {
+            var that = this;
+            // 添加用户
+            layer.open({
+                title: '添加用户',
+                type: 2,
+                area: ['600px', '500px'],
+                content: ['/menuaddtpl', 'no']
+            });
+        }
         // deleteMenuOne: function (data) {
         //     console.log(data)
         // }

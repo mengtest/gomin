@@ -11,37 +11,53 @@
 
 </head>
 <body>
-<div class="layui-card">
-    <div class="layui-card-header">
-        <span>用户管理</span>
-    </div>
-    <div class="layui-card-body">
-        <div>
-            <div class="layui-btn-group menuListTableBtnGroup">
-                <button data-method="openAddMenuModal" class="layui-btn layui-btn-sm">添加</button>
-                <button data-method="disableUserMulti" class="layui-btn layui-btn-warm layui-btn-sm">禁用</button>
-                <button data-method="enableUserMulti" class="layui-btn layui-btn-warm layui-btn-sm">启用</button>
-                <button data-method="deleteUserMuilti" class="layui-btn layui-btn-danger layui-btn-sm">批量删除</button>
+<div class="layui-card-body">
+    <form action="" class="layui-form">
+        <div class="layui-form-item">
+            <label for="MenuName" class="layui-form-label">菜单名:</label>
+            <div class="layui-input-block">
+                <input type="text" name="MenuName" id="MenuName" class="layui-input">
             </div>
         </div>
-        <div>
-            <table class="layui-hide" id="menuListTable" lay-filter="menuListTable"></table>
+        <div class="layui-form-item">
+            <label for="MenuUrl" class="layui-form-label">菜单路径:</label>
+            <div class="layui-input-block">
+                <input type="text" name="MenuUrl" id="MenuUrl" class="layui-input">
+            </div>
         </div>
-    </div>
+        <div class="layui-form-item">
+            <label for="Level" class="layui-form-label">菜单级别:</label>
+            <div class="layui-input-block">
+                <input type="text" name="Level" id="Level" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="ParentId" class="layui-form-label">父级菜单:</label>
+            <div class="layui-input-block">
+                <input type="text" name="ParentId" id="ParentId" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="Order" class="layui-form-label">顺序:</label>
+            <div class="layui-input-block">
+                <input type="text" name="Order" id="Order" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="Remark" class="layui-form-label">备注:</label>
+            <div class="layui-input-block">
+                <textarea name="Remark" id="Remark" class="layui-textarea" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" data-method="addMenu">确定</button>
+                <button type="button" class="layui-btn layui-btn-primary" data-method="cancelAdd">取消</button>
+            </div>
+        </div>
+    </form>
 </div>
-
 <script src="/static/lib/layui/layui.js" charset="utf-8"></script>
-<script src="/static/js/menu/menuList.js" charset="utf-8"></script>
-{{/*<script type="text/html" id="menuToolBar">*/}}
-    {{/*<a class="layui-btn layui-btn-sm" lay-event="detail">查看</a>*/}}
-    {{/*<a class="layui-btn layui-btn-sm" lay-event="ediUser">编辑</a>*/}}
-    {{/*{{#  if(d.Status == 1){ }}*/}}
-        {{/*<a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="updateUserStatus">禁用</a>*/}}
-    {{/*{{#  } else { }}*/}}
-        {{/*<a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="updateUserStatus">启用</a>*/}}
-    {{/*{{#  } }}*/}}
-    {{/*<a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="deleteUserOne">删除</a>*/}}
-{{/*</script>*/}}
-
+<script src="/static/js/menu/addMenu.js" charset="utf-8"></script>
 </body>
 </html>

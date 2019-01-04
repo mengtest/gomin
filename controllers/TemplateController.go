@@ -23,5 +23,8 @@ func (c *TemplateController) EditUserTpl() {
 func (c *TemplateController) MenuListTpl()  {
 	c.Layout = "layout.tpl"
 	c.TplName = "menu/menuList.tpl"
+}
 
+func (c *TemplateController) MenuAddTpl() {
+	c.TplName = "menu/addMenu.tpl"
 }
