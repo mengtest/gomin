@@ -15,8 +15,8 @@ type User struct {
 	Name       string    `orm:"size(100)"`
 	Mobile     string    `orm:"size(100)"`
 	Email      string    `orm:"size(100)"`
-	Status     int8      `orm:"NOT NULL;default(1)"`
-	IsValid    bool      `orm:"NOT NULL;default(1);type(bit)"`
+	Status     int8      `orm:"default(1)"`
+	IsValid    bool      `orm:"default(1);type(bit)"`
 }
 
 type Role struct {
@@ -25,8 +25,8 @@ type Role struct {
 	UpdateTime time.Time `orm:"auto_now;type(datetime)"`
 	RoleName   string    `orm:"size(100)"`
 	Remark     string    `orm:"size(100)"`
-	Status     int8      `orm:"NOT NULL;default(1)"`
-	IsValid    bool      `orm:"NOT NULL;default(1)"`
+	Status     int8      `orm:"default(1)"`
+	IsValid    bool      `orm:"default(1)"`
 }
 
 type UserRole struct {
@@ -35,8 +35,8 @@ type UserRole struct {
 	UpdateTime time.Time `orm:"auto_now;type(datetime)"`
 	UserId     int
 	RoleId     int
-	Status     int8 `orm:"NOT NULL;default(1)"`
-	IsValid    bool `orm:"NOT NULL;default(1)"`
+	Status     int8 `orm:"default(1)"`
+	IsValid    bool `orm:"default(1)"`
 }
 
 type Menu struct {
@@ -47,10 +47,10 @@ type Menu struct {
 	MenuUrl    string    `orm:"size(100)"`
 	Level      int       `orm:"default(1)"`
 	ParentId   int       `orm:"null"`
-	Order      int       `orm: "NOT NULL"`
+	Order      int       `orm: ""`
 	Remark     string    `orm:"size(100)"`
-	Status     int8      `orm:"NOT NULL;default(1)"`
-	IsValid    bool      `orm:"NOT NULL;default(1)"`
+	Status     int8      `orm:"default(1)"`
+	IsValid    bool      `orm:"default(1)"`
 }
 
 type RoleMenu struct {
@@ -59,8 +59,8 @@ type RoleMenu struct {
 	UpdateTime time.Time `orm:"auto_now;type(datetime)"`
 	RoleId     int
 	MenuId     int
-	Status     int8 `orm:"NOT NULL;default(1)"`
-	IsValid    bool `orm:"NOT NULL;default(1)"`
+	Status     int8 `orm:"default(1)"`
+	IsValid    bool `orm:"default(1)"`
 }
 
 type Permission struct {
@@ -70,8 +70,8 @@ type Permission struct {
 	PmsName    string    `orm:"size(100)"`
 	PmsCode    string    `orm:"size(100)"`
 	Remark     string    `orm:"size(100)"`
-	Status     int8      `orm:"NOT NULL;default(1)"`
-	IsValid    bool      `orm:"NOT NULL;default(1)"`
+	Status     int8      `orm:"default(1)"`
+	IsValid    bool      `orm:"default(1)"`
 }
 
 type RolePermission struct {
@@ -80,14 +80,14 @@ type RolePermission struct {
 	UpdateTime time.Time `orm:"auto_now;type(datetime)"`
 	RoleId     int
 	PmsId      int
-	Status     int8 `orm:"NOT NULL;default(1)"`
-	IsValid    bool `orm:"NOT NULL;default(1)"`
+	Status     int8 `orm:"default(1)"`
+	IsValid    bool `orm:"default(1)"`
 }
 
 func init() {
 	orm.Debug = true
 	orm.RegisterDriver("mysql", orm.DRMySQL)
-	orm.RegisterDataBase("default", "mysql", "root:123456@tcp(127.0.0.1:3306)/gomin?charset=utf8&loc=Asia%2FShanghai", 30)
+	orm.RegisterDataBase("default", "mysql", "root:123456@tcp(127.0.0.1:3607)/gomin?charset=utf8&loc=Asia%2FShanghai", 30)
 
 	orm.RegisterModel(new(User))
 	orm.RegisterModel(new(Role))
